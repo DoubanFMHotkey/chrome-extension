@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "Douban FM Hotkey",
+  "description": "Global hotkey for Douban FM web.",
+  "version": "1.2.1",
+
+  "permissions": [
+    "http://douban.fm/",
+    "storage"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["http://douban.fm/"],
+      "js": ["douban_fm_hotkey.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "options_page": "options.html"
+}
