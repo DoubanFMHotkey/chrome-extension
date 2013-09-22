@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Douban FM Hotkey Options</title>
     <style type="text/css">
-      #server {
+      input {
         width: 300px;
       }
     </style>
@@ -12,8 +12,14 @@
   <body>
     <div id="status"></div>
     <div id="options">
-      <label for="server">服务器地址：</label>
-      <input id="server" type="text" name="server" />
+      <div class="server">
+        <label for="server">服务器地址：</label>
+        <input id="server" type="text" name="server" />
+      </div>
+      <div class="token">
+        <label for="token">Access token：</label>
+        <input id="token" type="text" name="token" />
+      </div>
       <button id="save">保存</button>
     </div>
     <script type="text/javascript" src="options.js"></script>

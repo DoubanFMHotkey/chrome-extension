@@ -1,19 +1,16 @@
-var defaultServer = 'http://douban.yesmeck.com';
-
-chrome.storage.sync.get('server', function(data) {
-  var server;
-  if (!data['server']) {
-    chrome.storage.sync.set({'server': defaultServer})
-    server = defaultServer;
+chrome.storage.sync.get('options', function(data) {
+  var options;
+  if (!data.options) {
+    console.warn('Please set Douban FM Hotkey server address.')
   } else {
-    server = data['server'];
+    options = data.options;
   }
 
-  server = server.replace(/\/$/, '');
+  data.options.sever = data.options.server.replace(/\/$/, '');
 
   ['faye', 'douban/client'].forEach(function(script) {
     var el = document.createElement('script');
-    el.src = server + '/' + script + '.js';
+    el.src = data.options.server + '/' + script + '.js?access_token=' + data.options.token ;
     document.documentElement.firstChild.appendChild(el);
   });
 });

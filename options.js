@@ -1,8 +1,12 @@
 function save_options() {
-  var serverInput = document.getElementById('server');
-  var server = serverInput.value;
+  var serverInput = document.getElementById('server'),
+      tokenInput = document.getElementById('token'),
+      options = {
+        server: serverInput.value,
+        token: tokenInput.value
+      };
 
-  chrome.storage.sync.set({'server': server}, function() {
+  chrome.storage.sync.set({'options':  options}, function() {
     var status = document.getElementById("status");
     status.innerHTML = "保存成功";
     setTimeout(function() {
@@ -13,18 +17,20 @@ function save_options() {
 }
 
 function restore_options() {
-  var defaultServer = 'http://douban.yesmeck.com';
-  var server;
-  chrome.storage.sync.get('server', function(data) {
-    if (!data['server']) {
-      chrome.storage.sync.set({'server': defaultServer})
-      server = defaultServer;
+  var defaultOptions = { server: 'http://douban.yesmeck.com'},
+      options;
+  chrome.storage.sync.get('options', function(data) {
+    if (!data.options) {
+      chrome.storage.sync.set({'options': defaultOptions})
+      options = defaultOptions;
     } else {
-      server = data['server'];
+      options = data.options;
     }
-    var serverInput = document.getElementById('server');
-    serverInput.value = server;
-  })
+    for (var key in options) {
+      var input = document.getElementById(key);
+      input.value = options[key];
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
